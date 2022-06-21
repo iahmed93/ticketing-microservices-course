@@ -29,7 +29,10 @@ router.post(
       throw new BadRequestError("Invalid user name or password");
     }
 
-    const passwordsMatch = Password.compare(existingUser.password, password);
+    const passwordsMatch = await Password.compare(
+      existingUser.password,
+      password
+    );
     if (!passwordsMatch) {
       throw new BadRequestError("Invalid user name or password");
     }
