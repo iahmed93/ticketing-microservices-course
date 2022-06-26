@@ -7,8 +7,8 @@ router.get(
   "/api/users/currentuser",
   currentUser,
   requireAuth,
-  async (req, res) => {
-    return res.send({ currentUser: req.currentUser });
+  (req, res) => {
+    return res.json({ currentUser: req.currentUser });
   }
 );
 
