@@ -6,7 +6,7 @@ const router = express.Router();
 router.get(
   "/api/users/currentuser",
   currentUser,
-  requireAuth,
+  // requireAuth,
   (req, res) => {
     return res.json({ currentUser: req.currentUser });
   }

@@ -12,7 +12,7 @@ const useRequest = ({url, method, body, onSuccess}) => {
             }
             return response.data;
         } catch (error) {
-            console.log(error)
+            // console.log(error)
             setErrors(
                 <div className="alert alert-danger">
                     <ul>
