@@ -51,5 +51,3 @@ userSchema.pre("save", async function (done) {
 });
 
 export const User = mongoose.model<UserDocument, UserModel>("User", userSchema);
-
-const user = User.build({ email: "islam ahmed", password: "123" });

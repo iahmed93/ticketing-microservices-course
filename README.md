@@ -11,3 +11,8 @@
 - REMEMBER TO DELETE THE CLUSTER ON GCP
 
 - https://kubernetes.github.io/ingress-nginx/deploy/#gce-gke
+
+-- NPM
+npm login 
+npm publish --access public
+npm version patch

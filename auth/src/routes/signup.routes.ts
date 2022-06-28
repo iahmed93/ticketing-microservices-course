@@ -1,9 +1,9 @@
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
-import { BadRequestError } from "../errors";
+import { BadRequestError } from "@islamahmed93/common";
 import { User } from "../models";
 import jwt from "jsonwebtoken";
-import { validateRequest } from "../middlewares/validate-request.middleware";
+import { validateRequest } from "@islamahmed93/common";
 
 const signupBodySchema = [
   body("email").trim().isEmail().withMessage("Email must be valid"),

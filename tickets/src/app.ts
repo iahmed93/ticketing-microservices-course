@@ -2,14 +2,11 @@ import express from "express";
 import "express-async-errors";
 import { json } from "body-parser";
 import cookieSession from "cookie-session";
-import {
-  currentUserRouter,
-  signinRouter,
-  signoutRouter,
-  signupRouter,
-} from "./routes";
-import { errorHandler } from "@islamahmed93/common";
+
+import { currentUser, errorHandler } from "@islamahmed93/common";
 import { NotFoundError } from "@islamahmed93/common";
+import { createTicketRouter } from "./routes";
+
 
 const app = express();
 
@@ -24,10 +21,9 @@ app.use(
   })
 );
 
-app.use(currentUserRouter);
-app.use(signinRouter);
-app.use(signoutRouter);
-app.use(signupRouter);
+app.use(currentUser);
+
+app.use(createTicketRouter);
 
 app.get("*", () => {
   throw new NotFoundError();

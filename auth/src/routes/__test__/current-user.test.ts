@@ -4,6 +4,7 @@ import { app } from "../../app";
 
 it("should return current user details", async () => {
   const cookie = await signin();
+  console.log(cookie);
   const response = await request(app)
     .get("/api/users/currentuser")
     .set("Cookie", cookie)
