@@ -28,6 +28,15 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
+    - image: islamahmed93/orders
+    # - image: us.gcr.io/ticketing-dev-353217/orders
+      context: orders
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
     - image: islamahmed93/client
     # - image: us.gcr.io/ticketing-dev-353217/client
       context: client
