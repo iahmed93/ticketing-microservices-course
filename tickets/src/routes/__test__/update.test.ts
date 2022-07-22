@@ -1,6 +1,7 @@
 import request from 'supertest';
 import { app } from '../../app';
 import { signin } from '../../test/auth-helper';
+import { natsWrapper } from '../../nats-wrapper';
 
 function createTicket(title: string, price: number) {
     return request(app)
@@ -79,4 +80,17 @@ it('should update the ticket for the provided valid inputs', async () => {
         })
         .expect(200);
     expect(updateResponse.body.price).toEqual(20);
+});
+
+it('should publish ticket updated event' , async() => {
+    const response = await createTicket('test', 10);
+    const updateResponse = await request(app)
+        .put(`/api/tickets/${response.body.id}`)
+        .set('Cookie', signin())
+        .send({
+            title: 'test',
+            price: 20
+        })
+        .expect(200);
+    expect(natsWrapper.client.publish).toHaveBeenCalled();
 });
