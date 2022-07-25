@@ -49,6 +49,8 @@ router.post('/', requireAuth, bodySchema, validateRequest, async (req: Request, 
         ticket
     });
 
+    await order.save();
+
     res.status(201).send(order);
 });
 
