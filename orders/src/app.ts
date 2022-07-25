@@ -4,6 +4,7 @@ import { json } from "body-parser";
 import cookieSession from "cookie-session";
 
 import { currentUser, errorHandler, NotFoundError } from "@islamahmed93/common";
+import { createOrderRouter, deleteOrderRouter, readOrderRouter } from "./routes";
 
 
 const app = express();
@@ -20,6 +21,10 @@ app.use(
 );
 
 app.use(currentUser);
+
+app.use('/api/orders', readOrderRouter);
+app.use('/api/orders', createOrderRouter);
+app.use('/api/orders', deleteOrderRouter);
 
 app.get("*", () => {
   throw new NotFoundError();
