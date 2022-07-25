@@ -6,6 +6,8 @@ import { Order, Ticket } from '../models';
 
 const router = express.Router();
 
+const EXPIRATION_WINDOW_SECONDS = 15 * 60;
+
 const bodySchema = [
     body('ticketId')
         .not()
@@ -36,8 +38,18 @@ router.post('/', requireAuth, bodySchema, validateRequest, async (req: Request, 
     if (existingOrder) {
         throw new BadRequestError('Ticket reserved');
     }
-    
-    res.send({});
+
+    const expiration = new Date();
+    expiration.setSeconds(expiration.getSeconds() + EXPIRATION_WINDOW_SECONDS);
+
+    const order = Order.build({
+        userId: req.currentUser!.id,
+        status: OrderStatus.Created,
+        expiresAt: expiration,
+        ticket
+    });
+
+    res.status(201).send(order);
 });
 
 export {router as createOrderRouter};
