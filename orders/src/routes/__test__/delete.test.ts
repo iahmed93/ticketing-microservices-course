@@ -2,6 +2,7 @@ import { OrderStatus } from "@islamahmed93/common";
 import  request  from "supertest";
 import { app } from "../../app";
 import { Order, Ticket } from "../../models";
+import { natsWrapper } from "../../nats-wrapper";
 import { signin } from "../../test/auth-helper";
 
 
@@ -31,4 +32,21 @@ it('should cancel order of current user', async() => {
     const canceledOrder = await Order.findById(order.body.id);
     expect(canceledOrder!.status).toEqual(OrderStatus.Cancelled);
     
-})
+});
+
+it('should emit an order created event', async() => {
+    const ticket = await createTicket();
+    const user = signin('1');
+    const order = await request(app)
+        .post('/api/orders')
+        .set('Cookie', user)
+        .send({
+            ticketId: ticket.id
+        }).expect(201);
+    await request(app)
+        .delete(`/api/orders/${order.body.id}`)
+        .set('Cookie', user)
+        .send()
+        .expect(204);
+    expect(natsWrapper.client.publish).toHaveBeenCalled();
+});
