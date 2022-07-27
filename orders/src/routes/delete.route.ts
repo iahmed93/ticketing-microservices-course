@@ -18,6 +18,7 @@ router.delete('/:id', async (req: Request, res: Response) => {
     order.save();
     new OrderCancelledPublisher(natsWrapper.client).publish({
         id: order.id,
+        version: order.version,
         ticket: {
             id: order.ticket.id
         }
