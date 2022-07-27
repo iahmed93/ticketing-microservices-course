@@ -15,7 +15,7 @@ router.delete('/:id', async (req: Request, res: Response) => {
         throw new NotAuthorizedError();
     }
     order.status = OrderStatus.Cancelled;
-    order.save();
+    await order.save();
     new OrderCancelledPublisher(natsWrapper.client).publish({
         id: order.id,
         version: order.version,

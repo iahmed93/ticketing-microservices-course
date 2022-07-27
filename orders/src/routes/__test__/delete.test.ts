@@ -1,4 +1,5 @@
 import { OrderStatus } from "@islamahmed93/common";
+import mongoose from "mongoose";
 import  request  from "supertest";
 import { app } from "../../app";
 import { Order, Ticket } from "../../models";
@@ -9,7 +10,8 @@ import { signin } from "../../test/auth-helper";
 const createTicket = async () => {
     const ticket = Ticket.build({
         title: 'concert',
-        price: 10
+        price: 10,
+        id: new mongoose.Types.ObjectId().toHexString()
     });
     return ticket.save();
 }
