@@ -31,7 +31,8 @@ it('should create and save a ticket', async() => {
     expect(ticket).toBeDefined();
     expect(ticket!.title).toEqual(data.title);
     expect(ticket!.price).toEqual(data.price);
-})
+});
+
 it('should ack a message', async() => {
     const {listener, data, msg} = await setup();
     await listener.onMessage(data, msg);

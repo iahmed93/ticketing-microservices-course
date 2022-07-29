@@ -11,7 +11,7 @@ export class TicketUpdatedListener extends Listener<TicketUpdatedEvent> {
         const {id, title, price} = data;
         
         const ticket = await Ticket.findOne({
-            _id: data.id,
+            _id: id,
             version: data.version - 1
         });
 

@@ -1,5 +1,6 @@
 import { OrderStatus } from "@islamahmed93/common";
 import mongoose from "mongoose";
+import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 import { TicketDocument } from "./ticket.model";
 
 // describes the properties that create new order
@@ -50,6 +51,9 @@ const orderSchema = new mongoose.Schema({
         }
     }
 });
+
+orderSchema.set('versionKey', 'version');
+orderSchema.plugin(updateIfCurrentPlugin);
 
 orderSchema.statics.build = (attrs: OrderAttributes) => {
     return new Order(attrs);
