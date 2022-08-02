@@ -1,7 +1,7 @@
 import { NotAuthorizedError, NotFoundError, requireAuth, validateRequest } from '@islamahmed93/common';
 import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
-import { TicketUpdatedPublisher } from '../events/ticket-updated-publisher';
+import { TicketUpdatedPublisher } from '../events/publishers/ticket-updated-publisher';
 import { Ticket } from '../models';
 import { natsWrapper } from '../nats-wrapper';
 

@@ -1,7 +1,7 @@
 import { requireAuth, validateRequest } from "@islamahmed93/common";
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
-import { TicketCreatedPublisher } from "../events/ticket-created-publisher";
+import { TicketCreatedPublisher } from "../events/publishers/ticket-created-publisher";
 import { Ticket } from "../models";
 import { natsWrapper } from "../nats-wrapper";
 
